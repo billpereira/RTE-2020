@@ -1,0 +1,8 @@
+---
+  - hosts: cobol    
+    environment:
+      LIBPATH: "{{python_path}}/lib:/lib:/usr/lib:."
+
+    tasks: 
+      - name: Pinging host - {{ inventory_hostname }}
+        ping:

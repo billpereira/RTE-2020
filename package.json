@@ -1,0 +1,12 @@
+{
+  "name": "cobol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "cbl": "tsnd --transpile-only --ignore-watch node_modules --respawn utils/cbl.ts"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node-dev": "^1.0.0-pre.58"
+  }
+}
