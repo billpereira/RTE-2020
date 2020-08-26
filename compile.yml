@@ -1,0 +1,40 @@
+---
+  - hosts: cobol
+    gather_facts: no  
+    environment:
+      ZOAU_ROOT: '{{zoau_home}}'    
+      ZOAU_HOME: '{{zoau_home}}' 
+      PATH: '{{zoau_home}}/bin:{{python_path}}/bin:/bin:.'
+      LIBPATH: '{{zoau_home}}/lib:{{python_path}}/lib:/lib:/usr/lib:.'
+      PYTHONPATH: '{{zoau_home}}/lib'
+      _BPXK_AUTOCVT: 'ON'
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: Upload {{member_name.upper()}} to source library
+        zos_copy:
+          src: "{{home_path}}/src/{{member_name}}.cbl"
+          dest: "{{ansible_user.upper()}}.DEMO.CBL({{member_name.upper()}})"
+      
+      - name: Preparing JCL to compile {{member_name}}
+        template:
+          src: utils/COMPILE.j2
+          dest:  /z/{{ansible_user}}/compile.jcl
+
+      - name: Change encoding to EBCDIC
+        zos_encode:
+          src: /z/{{ansible_user}}/compile.jcl
+          from_encoding: ISO8859-1
+          to_encoding: IBM-1047
+      
+      - name: Submit job for compile
+        zos_job_submit:
+          src: /z/{{ansible_user}}/compile.jcl
+          location: USS
+          wait: true
+        register: response
+        
+      - debug:
+          msg: "{{response.jobs[0].ddnames[0]}}"
+      

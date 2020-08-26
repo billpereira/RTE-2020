@@ -1,7 +1,7 @@
 ---
   ansible_port: 22                                # SSH Port
-  ansible_user: Z80003                              # USER used for deploy
-  ansible_password: ZCOBOL                        # USER used for deploy
+  ansible_user: id                              # USER used for deploy
+  ansible_password: password                        # USER used for deploy
   ansible_ssh_pipelining: True                    # needed for encoding on ssh connections
   # System Related Variables
   zoau_home: /z/python/zoau-v1.0.3                 # Path for your ZOAU directory
@@ -12,3 +12,4 @@
   _TAG_REDIR_OUT: txt
   tgt_tmp_dir: "/tmp"
   ctl_tmp_dir: "/tmp"
+  home_path: /Users/billpereira/Documents/zSkills/cobol

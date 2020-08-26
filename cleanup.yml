@@ -1,0 +1,23 @@
+---
+  - hosts: all
+    environment:
+      ZOAU_ROOT: '{{zoau_home}}'    
+      ZOAU_HOME: '{{zoau_home}}' 
+      PATH: '{{zoau_home}}/bin:{{python_path}}/bin:/bin:.'
+      LIBPATH: '{{zoau_home}}/lib:{{python_path}}/lib:/lib:/usr/lib:.'
+      PYTHONPATH: '{{zoau_home}}/lib'
+      _BPXK_AUTOCVT: 'ON'
+    collections:
+      - ibm.ibm_zos_core
+    
+    tasks:
+      - name: Create SRC Library user.DEMO.CBL
+        zos_data_set: 
+          name: '{{ansible_user}}.DEMO.CBL'
+          state: absent
+
+      - name: Create LOADLIB user.DEMO.LOADLIB
+        zos_data_set: 
+          name: '{{ansible_user}}.DEMO.LOADLIB'
+          state: absent
+      

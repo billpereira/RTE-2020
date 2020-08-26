@@ -1,0 +1,7 @@
+//COBOL   JOB 1 
+//***************************************************/                  
+//COBRUN  EXEC IGYWCL                                                   
+//COBOL.SYSIN  DD DSN={{ansible_user.upper()}}.DEMO.CBL({{member_name.upper()}}),
+//           DISP=SHR    
+//LKED.SYSLMOD DD DSN={{ansible_user.upper()}}.DEMO.LOADLIB({{member_name.upper()}}),
+//           DISP=SHR 
